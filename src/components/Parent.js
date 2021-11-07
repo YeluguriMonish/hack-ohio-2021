@@ -20,11 +20,14 @@ export default class Parent extends Component {
   render() {
     return (
       <>
-        <Header handleChange={this.onChangeHandler} drug={this.state.drug} />
+        <Header handleChange={this.onChangeHandler} />
         <Router>
           <Routes>
             <Route path="/" element={<DrugData />} />
-            <Route path="/drug-data" element={<DrugData />} />
+            <Route
+              path="/drug-data"
+              element={<DrugData drug={this.state.drug} />}
+            />
             <Route path="/sales-targets" element={<SalesTargets />} />
           </Routes>
         </Router>
