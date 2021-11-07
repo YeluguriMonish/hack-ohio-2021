@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 
-import CholecapUAC from "../../../data/uac-cholecap.json";
-import NasalclearUAC from "../../../data/uac-nasalclear.json";
-import NovaUAC from "../../../data/uac-nova.json";
-import ZapUAC from "../../../data/uac-zap.json";
+import CholecapUAC from "../../../data/targetUACCholecap.json";
+import NasalclearUAC from "../../../data/targetUACNasalclear.json";
+import NovaUAC from "../../../data/targetUACNova_itch.json";
+import ZapUAC from "../../../data/targetUACZap_a_Pain.json";
 
 export default class DrugData extends Component {
   render() {

@@ -16,14 +16,14 @@ import Map from "./map/Map";
 
 import "./DrugData.css";
 
-import TrxCholeccap from "../../data/trx-choleccap.json";
-import TrxZap from "../../data/trx-zap.json";
-import TrxNasalclear from "../../data/trx-nasalclear.json";
-import TrxNova from "../../data/trx-nova.json";
-import TopDocsChloecap from "../../data/top-docs-chloecap.json";
-import TopDocsZap from "../../data/top-docs-zap.json";
-import TopDocsNasalclear from "../../data/top-docs-nasalclear.json";
-import TopDocsNova from "../../data/top-docs-nova.json";
+import TrxCholeccap from "../../data/TRxCholecap.json";
+import TrxZap from "../../data/TRxZap_a_Pain.json";
+import TrxNasalclear from "../../data/TRxNasalclear.json";
+import TrxNova from "../../data/TRxNova_itch.json";
+import TopDocsChloecap from "../../data/topSellersCholecapKV.json";
+import TopDocsZap from "../../data/topSellersZap_a_PainKV.json";
+import TopDocsNasalclear from "../../data/topSellersNasalclearKV.json";
+import TopDocsNova from "../../data/topSellersNova_itchKV.json";
 
 export default class DrugData extends Component {
   render() {

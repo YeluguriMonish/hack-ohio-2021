@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import USAMap from "react-usa-map";
 import * as d3 from "d3";
 
-import CholecapMapData from "../../../data/map-cholecap.json";
-import NasalclearMapData from "../../../data/map-nasalclear.json";
-import NovaMapData from "../../../data/map-nova.json";
-import ZapMapData from "../../../data/map-zap.json";
+import CholecapMapData from "../../../data/StateInfoCholecap.json";
+import NasalclearMapData from "../../../data/StateInfoNasalclear.json";
+import NovaMapData from "../../../data/StateInfoNova_itch.json";
+import ZapMapData from "../../../data/StateInfoZap_a_Pain.json";
 import "./Map.css";
 
 export default class Map extends Component {
