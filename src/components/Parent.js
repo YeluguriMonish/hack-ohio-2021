@@ -28,7 +28,10 @@ export default class Parent extends Component {
               path="/drug-data"
               element={<DrugData drug={this.state.drug} />}
             />
-            <Route path="/sales-targets" element={<SalesTargets />} />
+            <Route
+              path="/sales-targets"
+              element={<SalesTargets drug={this.state.drug} />}
+            />
           </Routes>
         </Router>
       </>
