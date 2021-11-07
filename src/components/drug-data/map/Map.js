@@ -17,7 +17,7 @@ export default class Map extends Component {
   };
   componentDidMount() {
     let dict = {};
-    var myColor = d3.scaleLinear().domain([0, 100]).range(["white", "green"]);
+    var myColor = d3.scaleLinear().domain([0, 100]).range(["white", "orange"]);
     CholecapMapData.map((sta) => {
       dict[sta.State] = { fill: myColor(sta.AdjustedPercent * 100) };
     });
