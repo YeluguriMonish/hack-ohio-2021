@@ -10,6 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Table from "react-bootstrap/Table";
+import Map from "./map/Map";
 
 import "./DrugData.css";
 
@@ -28,6 +29,7 @@ export default class DrugData extends Component {
       case "cholecap":
         return (
           <>
+            <Map drug={"cholecap"} />
             <ResponsiveContainer aspect={5.0 / 2.0} width="85%">
               <LineChart
                 data={TrxCholeccap}
@@ -81,34 +83,37 @@ export default class DrugData extends Component {
       case "zap":
         return (
           <>
-            <ResponsiveContainer aspect={5.0 / 2.0} width="85%">
-              <LineChart
-                width={500}
-                height={300}
-                data={TrxZap}
-                margin={{
-                  top: 20,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="name"
-                  label={{ value: "Month", position: "insideBottom" }}
-                />
-                <YAxis
-                  label={{ value: "TRx", angle: -90, position: "insideLeft" }}
-                />
-                <Tooltip />
-                <Line
-                  type="monotone"
-                  dataKey="prescriptions"
-                  stroke="#82ca9d"
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            <div className="test">
+              <Map drug={"zap"} />
+              <ResponsiveContainer aspect={5.0 / 2.0} width="85%">
+                <LineChart
+                  width={500}
+                  height={300}
+                  data={TrxZap}
+                  margin={{
+                    top: 20,
+                    right: 30,
+                    left: 20,
+                    bottom: 5,
+                  }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="name"
+                    label={{ value: "Month", position: "insideBottom" }}
+                  />
+                  <YAxis
+                    label={{ value: "TRx", angle: -90, position: "insideLeft" }}
+                  />
+                  <Tooltip />
+                  <Line
+                    type="monotone"
+                    dataKey="prescriptions"
+                    stroke="#82ca9d"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -186,6 +191,7 @@ export default class DrugData extends Component {
                 ))}
               </tbody>
             </Table>
+            <Map drug={"nasalclear"} />
           </>
         );
       case "nova":
@@ -241,6 +247,7 @@ export default class DrugData extends Component {
                 ))}
               </tbody>
             </Table>
+            <Map drug={"nova"} />
           </>
         );
       default:

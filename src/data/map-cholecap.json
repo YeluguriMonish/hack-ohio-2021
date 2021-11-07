@@ -1,0 +1,237 @@
+[
+    {
+        "State": "VA",
+        "Total": 6447,
+        "AdjustedPercent": 0.28
+    },
+    {
+        "State": "WV",
+        "Total": 1557,
+        "AdjustedPercent": 0.07
+    },
+    {
+        "State": "UT",
+        "Total": 3612,
+        "AdjustedPercent": 0.15
+    },
+    {
+        "State": "CA",
+        "Total": 23385,
+        "AdjustedPercent": 1.0
+    },
+    {
+        "State": "PA",
+        "Total": 5537,
+        "AdjustedPercent": 0.24
+    },
+    {
+        "State": "ID",
+        "Total": 1451,
+        "AdjustedPercent": 0.06
+    },
+    {
+        "State": "WA",
+        "Total": 3594,
+        "AdjustedPercent": 0.15
+    },
+    {
+        "State": "FL",
+        "Total": 17558,
+        "AdjustedPercent": 0.75
+    },
+    {
+        "State": "AL",
+        "Total": 4093,
+        "AdjustedPercent": 0.18
+    },
+    {
+        "State": "TX",
+        "Total": 18747,
+        "AdjustedPercent": 0.8
+    },
+    {
+        "State": "NY",
+        "Total": 15559,
+        "AdjustedPercent": 0.67
+    },
+    {
+        "State": "SC",
+        "Total": 3832,
+        "AdjustedPercent": 0.16
+    },
+    {
+        "State": "AR",
+        "Total": 1197,
+        "AdjustedPercent": 0.05
+    },
+    {
+        "State": "OH",
+        "Total": 9481,
+        "AdjustedPercent": 0.41
+    },
+    {
+        "State": "KS",
+        "Total": 1109,
+        "AdjustedPercent": 0.05
+    },
+    {
+        "State": "DC",
+        "Total": 7524,
+        "AdjustedPercent": 0.32
+    },
+    {
+        "State": "IL",
+        "Total": 6063,
+        "AdjustedPercent": 0.26
+    },
+    {
+        "State": "CO",
+        "Total": 7123,
+        "AdjustedPercent": 0.3
+    },
+    {
+        "State": "MS",
+        "Total": 2280,
+        "AdjustedPercent": 0.1
+    },
+    {
+        "State": "TN",
+        "Total": 2300,
+        "AdjustedPercent": 0.1
+    },
+    {
+        "State": "AZ",
+        "Total": 4077,
+        "AdjustedPercent": 0.17
+    },
+    {
+        "State": "NJ",
+        "Total": 1444,
+        "AdjustedPercent": 0.06
+    },
+    {
+        "State": "SD",
+        "Total": 352,
+        "AdjustedPercent": 0.02
+    },
+    {
+        "State": "MO",
+        "Total": 4062,
+        "AdjustedPercent": 0.17
+    },
+    {
+        "State": "GA",
+        "Total": 6114,
+        "AdjustedPercent": 0.26
+    },
+    {
+        "State": "IN",
+        "Total": 3432,
+        "AdjustedPercent": 0.15
+    },
+    {
+        "State": "MA",
+        "Total": 8012,
+        "AdjustedPercent": 0.34
+    },
+    {
+        "State": "CT",
+        "Total": 2352,
+        "AdjustedPercent": 0.1
+    },
+    {
+        "State": "LA",
+        "Total": 2911,
+        "AdjustedPercent": 0.12
+    },
+    {
+        "State": "NV",
+        "Total": 2460,
+        "AdjustedPercent": 0.11
+    },
+    {
+        "State": "MT",
+        "Total": 861,
+        "AdjustedPercent": 0.04
+    },
+    {
+        "State": "HI",
+        "Total": 1137,
+        "AdjustedPercent": 0.05
+    },
+    {
+        "State": "OK",
+        "Total": 1713,
+        "AdjustedPercent": 0.07
+    },
+    {
+        "State": "IA",
+        "Total": 3892,
+        "AdjustedPercent": 0.17
+    },
+    {
+        "State": "MI",
+        "Total": 3383,
+        "AdjustedPercent": 0.14
+    },
+    {
+        "State": "WI",
+        "Total": 4693,
+        "AdjustedPercent": 0.2
+    },
+    {
+        "State": "AK",
+        "Total": 2551,
+        "AdjustedPercent": 0.11
+    },
+    {
+        "State": "NC",
+        "Total": 4408,
+        "AdjustedPercent": 0.19
+    },
+    {
+        "State": "MD",
+        "Total": 1619,
+        "AdjustedPercent": 0.07
+    },
+    {
+        "State": "OR",
+        "Total": 1124,
+        "AdjustedPercent": 0.05
+    },
+    {
+        "State": "MN",
+        "Total": 3808,
+        "AdjustedPercent": 0.16
+    },
+    {
+        "State": "DE",
+        "Total": 1241,
+        "AdjustedPercent": 0.05
+    },
+    {
+        "State": "RI",
+        "Total": 633,
+        "AdjustedPercent": 0.03
+    },
+    {
+        "State": "KY",
+        "Total": 502,
+        "AdjustedPercent": 0.02
+    },
+    {
+        "State": "NE",
+        "Total": 0,
+        "AdjustedPercent": 0.0
+    },
+    {
+        "State": "ND",
+        "Total": 0,
+        "AdjustedPercent": 0.0
+    },
+    {
+        "State": "VT",
+        "Total": 0,
+        "AdjustedPercent": 0.0
+    }
+]
