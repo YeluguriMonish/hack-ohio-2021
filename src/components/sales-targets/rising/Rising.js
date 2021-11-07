@@ -112,7 +112,7 @@ export default class DrugData extends Component {
           </Table>
         );
       default:
-        return <div>select drug</div>;
+        return <div>Select product</div>;
     }
   }
 }
