@@ -26,10 +26,8 @@ data["NRx_sum_half_diff"] = data['NRx_sum_first3']-data['NRx_sum_last3']
 top_TRx_all = data.nlargest(10, 'TRx_sum')
 top_NRx_all = data.nlargest(10, 'NRx_sum')
 
-with open(path_to_data + 'topSellersTRx.json', 'w') as outfile:
-    json.dump(top_TRx_all.to_json(orient='index'), outfile)
-with open(path_to_data + 'topSellersNRx.json', 'w') as outfile:
-    json.dump(top_NRx_all.to_json(orient='index'), outfile)
+top_TRx_all.to_json(path_to_data + 'topSellersTRx.json',orient='records')
+top_NRx_all.to_json(path_to_data + 'topSellersNRx.json',orient='records')
 
 Cholecap = data.loc[data.Product == 'Cholecap']
 Zap_a_Pain = data.loc[data.Product == 'Zap-a-Pain']
@@ -47,8 +45,8 @@ Cholecap_state_sum['Percent'] = Cholecap_state_sum['Total'].astype(float).div(Ch
 Cholecap_max_percent = Cholecap_state_sum['Percent'].max()
 Cholecap_state_sum['AdjustedPercent'] = Cholecap_state_sum['Percent'].astype(float).div(Cholecap_max_percent).round(2)
 Cholecap_state_sum = Cholecap_state_sum.drop(columns=['Percent'])
-with open(path_to_data + 'CholecapStateInfo.json', 'w') as outfile:
-    json.dump(Cholecap_state_sum.to_json(orient='index'), outfile)
+
+Cholecap_state_sum.to_json(path_to_data + 'CholecapStateInfo.json',orient='records')
 
 Zap_a_Pain_sum = Zap_a_Pain['TRx_sum'].sum()
 Zap_a_Pain_state_sum = pd.DataFrame(columns = ['State', 'Total'])
@@ -60,8 +58,8 @@ Zap_a_Pain_state_sum['Percent'] = Zap_a_Pain_state_sum['Total'].astype(float).di
 Zap_a_Pain_max_percent = Zap_a_Pain_state_sum['Percent'].max()
 Zap_a_Pain_state_sum['AdjustedPercent'] = Zap_a_Pain_state_sum['Percent'].astype(float).div(Zap_a_Pain_max_percent).round(2)
 Zap_a_Pain_state_sum = Zap_a_Pain_state_sum.drop(columns=['Percent'])
-with open(path_to_data + 'Zap_a_PainStateInfo.json', 'w') as outfile:
-    json.dump(Zap_a_Pain_state_sum.to_json(orient='index'), outfile)
+
+Zap_a_Pain_state_sum.to_json(path_to_data + 'Zap_a_PainStateInfo.json',orient='records')
 
 Nasalclear_sum = Nasalclear['TRx_sum'].sum()
 Nasalclear_state_sum = pd.DataFrame(columns = ['State', 'Total'])
@@ -73,8 +71,8 @@ Nasalclear_state_sum['Percent'] = Nasalclear_state_sum['Total'].astype(float).di
 Nasalclear_max_percent = Nasalclear_state_sum['Percent'].max()
 Nasalclear_state_sum['AdjustedPercent'] = Nasalclear_state_sum['Percent'].astype(float).div(Nasalclear_max_percent).round(2)
 Nasalclear_state_sum = Nasalclear_state_sum.drop(columns=['Percent'])
-with open(path_to_data + 'NasalclearStateInfo.json', 'w') as outfile:
-    json.dump(Nasalclear_state_sum.to_json(orient='index'), outfile)
+
+Nasalclear_state_sum.to_json(path_to_data + 'NasalclearStateInfo.json',orient='records')
 
 Nova_itch_sum = Nova_itch['TRx_sum'].sum()
 Nova_itch_state_sum = pd.DataFrame(columns = ['State', 'Total'])
@@ -86,8 +84,8 @@ Nova_itch_state_sum['Percent'] = Nova_itch_state_sum['Total'].astype(float).div(
 Nova_itch_max_percent = Nova_itch_state_sum['Percent'].max()
 Nova_itch_state_sum['AdjustedPercent'] = Nova_itch_state_sum['Percent'].astype(float).div(Nova_itch_max_percent).round(2)
 Nova_itch_state_sum = Nova_itch_state_sum.drop(columns=['Percent'])
-with open(path_to_data + 'Nova_itchStateInfo.json', 'w') as outfile:
-    json.dump(Nova_itch_state_sum.to_json(orient='index'), outfile)
+
+Nova_itch_state_sum.to_json(path_to_data + 'Nova_itchStateInfo.json',orient='records')
 
 #Get trx sums
 sums = pd.DataFrame(columns = ['Product'])
@@ -97,8 +95,7 @@ for trx in TRx_columns:
     trx_sum = [Cholecap[trx].sum(), Zap_a_Pain[trx].sum(), Nasalclear[trx].sum(), Nova_itch[trx].sum()]
     sums[trx] = trx_sum
 
-with open(path_to_data + 'sums.json', 'w') as outfile:
-    json.dump(sums.to_json(orient='index'), outfile)
+sums.to_json(path_to_data + 'sums.json',orient='records')
 
 X = np.array([1,2,3,4,5,6]).reshape(-1,1)
 Cholecap_Y = sums[sums['Product'] == 'Cholecap'][TRx_columns].values.reshape(-1, 1)
@@ -138,18 +135,10 @@ top_TRx_Zap_a_Pain = Zap_a_Pain.nlargest(20, 'TRx_sum')
 top_TRx_Nasalclear = Nasalclear.nlargest(20, 'TRx_sum')
 top_TRx_Nova_itch = Nova_itch.nlargest(20, 'TRx_sum')
 
-with open(path_to_data + 'topSellersCholecap.json', 'w') as outfile:
-    json.dump(top_TRx_Cholecap.to_json(orient='index'), outfile)
-
-with open(path_to_data + 'topSellersZap_a_Pain.json', 'w') as outfile:
-    json.dump(top_TRx_Zap_a_Pain.to_json(orient='index'), outfile)
-
-with open(path_to_data + 'topSellersNasalclear.json', 'w') as outfile:
-    json.dump(top_TRx_Nasalclear.to_json(orient='index'), outfile)
-
-with open(path_to_data + 'topSellersNova_itch.json', 'w') as outfile:
-    json.dump(top_TRx_Nova_itch.to_json(orient='index'), outfile)
-
+top_TRx_Cholecap.to_json(path_to_data + 'topSellersCholecap.json', orient='records')
+top_TRx_Zap_a_Pain.to_json(path_to_data + 'topSellersZap_a_Pain.json', orient='records')
+top_TRx_Nasalclear.to_json(path_to_data + 'topSellersNasalclear.json',orient='records')
+top_TRx_Nova_itch.to_json(path_to_data + 'topSellersNova_itch.json',orient='records')
 
 #Sales targets
 average_NRx_Cholecape = Cholecap['NRx_sum'].mean()
@@ -174,51 +163,33 @@ Cholecap_upandcoming = Cholecap_r_top.loc[Cholecap_r_top.NRx_sum>average_NRx_Cho
 Cholecap_rising = Cholecap_r_top.loc[Cholecap_r_top.NRx_sum<average_NRx_Cholecape].nlargest(10, 'NRx_sum_last3')
 Cholecap_drop_off = Cholecap_r_top.nlargest(10, 'NRx_sum_half_diff')
 
-with open(path_to_data + 'targetUACCholecap.json', 'w') as outfile:
-    json.dump(Cholecap_upandcoming.to_json(orient='index'), outfile)
+Cholecap_upandcoming.to_json(path_to_data + 'targetUACCholecap.json',orient='records')
+Cholecap_rising.to_json(path_to_data + 'targetRiseCholecap.json',orient='records')
+Cholecap_drop_off.to_json(path_to_data + 'targetDropCholecap.json',orient='records')
 
-with open(path_to_data + 'targetRiseCholecap.json', 'w') as outfile:
-    json.dump(Cholecap_rising.to_json(orient='index'), outfile)
-
-with open(path_to_data + 'targetDropCholecap.json', 'w') as outfile:
-    json.dump(Cholecap_drop_off.to_json(orient='index'), outfile)
 
 Zap_a_Pain_upandcoming = Zap_a_Pain_r_top.loc[Zap_a_Pain_r_top.NRx_sum>average_NRx_Zap_a_Pain].nlargest(10, 'NRx_sum_last3')
 Zap_a_Pain_rising = Zap_a_Pain_r_top.loc[Zap_a_Pain_r_top.NRx_sum<average_NRx_Zap_a_Pain].nlargest(10, 'NRx_sum_last3')
 Zap_a_Pain_drop_off = Zap_a_Pain_r_top.nlargest(10, 'NRx_sum_half_diff')
 
-with open(path_to_data + 'targetUACZap_a_Pain.json', 'w') as outfile:
-    json.dump(Zap_a_Pain_upandcoming.to_json(orient='index'), outfile)
+Zap_a_Pain_upandcoming.to_json(path_to_data + 'targetUACZap_a_Pain.json',orient='records')
+Zap_a_Pain_rising.to_json(path_to_data + 'targetRiseZap_a_Pain.json',orient='records')
+Zap_a_Pain_drop_off.to_json(path_to_data + 'targetDropZap_a_Pain.json',orient='records')
 
-with open(path_to_data + 'targetRiseZap_a_Pain.json', 'w') as outfile:
-    json.dump(Zap_a_Pain_rising.to_json(orient='index'), outfile)
-
-with open(path_to_data + 'targetDropZap_a_Pain.json', 'w') as outfile:
-    json.dump(Zap_a_Pain_drop_off.to_json(orient='index'), outfile)
 
 Nasalclear_upandcoming = Nasalclear_r_top.loc[Nasalclear_r_top.NRx_sum>average_NRx_Nasalclear].nlargest(10, 'NRx_sum_last3')
 Nasalclear_rising = Nasalclear_r_top.loc[Nasalclear_r_top.NRx_sum<average_NRx_Nasalclear].nlargest(10, 'NRx_sum_last3')
 Nasalclear_drop_off = Nasalclear_r_top.nlargest(10, 'NRx_sum_half_diff')
 
-with open(path_to_data + 'targetUACNasalclear.json', 'w') as outfile:
-    json.dump(Nasalclear_upandcoming.to_json(orient='index'), outfile)
+Nasalclear_upandcoming.to_json(path_to_data + 'targetUACNasalclear.json',orient='records')
+Nasalclear_rising.to_json(path_to_data + 'targetRiseNasalclear.json',orient='records')
+Nasalclear_drop_off.to_json(path_to_data + 'targetDropNasalclear.json',orient='records')
 
-with open(path_to_data + 'targetRiseNasalclear.json', 'w') as outfile:
-    json.dump(Nasalclear_rising.to_json(orient='index'), outfile)
-
-with open(path_to_data + 'targetDropNasalclear.json', 'w') as outfile:
-    json.dump(Nasalclear_drop_off.to_json(orient='index'), outfile)
 
 Nova_itch_upandcoming = Nova_itch_r_top.loc[Nova_itch_r_top.NRx_sum>average_NRx_Nova_itch].nlargest(10, 'NRx_sum_last3')
 Nova_itch_rising = Nova_itch_r_top.loc[Nova_itch_r_top.NRx_sum<average_NRx_Nova_itch].nlargest(10, 'NRx_sum_last3')
 Nova_itch_drop_off = Nova_itch_r_top.nlargest(10, 'NRx_sum_half_diff')
 
-with open(path_to_data + 'targetUACNova_itch.json', 'w') as outfile:
-    json.dump(Nova_itch_upandcoming.to_json(orient='index'), outfile)
-
-with open(path_to_data + 'targetRiseNova_itch.json', 'w') as outfile:
-    json.dump(Nova_itch_rising.to_json(orient='index'), outfile)
-
-with open(path_to_data + 'targetDropNova_itch.json', 'w') as outfile:
-    json.dump(Nova_itch_drop_off.to_json(orient='index'), outfile)
-
+Nova_itch_upandcoming.to_json(path_to_data + 'targetUACNova_itch.json',orient='records')
+Nova_itch_rising.to_json(path_to_data + 'targetRiseNova_itch.json',orient='records')
+Nova_itch_drop_off.to_json(path_to_data + 'targetDropNova_itch.json',orient='records')
