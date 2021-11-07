@@ -1,11 +1,22 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
 import json
 from us_state_abbrev import us_state_to_abbrev
 
 path_to_data = 'data/'
+
+def getStateInfo(productData, outputFile):
+    sum = productData['TRx_sum'].sum()
+    state_sum = pd.DataFrame(columns = ['State', 'Total'])
+    for i, state in enumerate(states):
+        current_state_data = productData.loc[data.State == state]
+        trx = current_state_data['TRx_sum'].sum()
+        state_sum.loc[i] = [us_state_to_abbrev[state], trx]
+    state_sum['Percent'] = state_sum['Total'].astype(float).div(sum)
+    max_percent = state_sum['Percent'].max()
+    state_sum['AdjustedPercent'] = state_sum['Percent'].astype(float).div(max_percent).round(2)
+    state_sum = state_sum.drop(columns=['Percent'])
+    state_sum.to_json(outputFile,orient='records')
 
 data = pd.read_csv('data_analytics/Prescriber_Data.csv')
 states = data.State.unique()
@@ -21,71 +32,16 @@ data["NRx_sum_first3"] = data[NRx_columns_first3].sum(axis=1)
 data["NRx_sum_last3"] = data[NRx_columns_last3].sum(axis=1)
 data["NRx_sum_half_diff"] = data['NRx_sum_first3']-data['NRx_sum_last3']
 
-
-#Top sellers for all drugs
-top_TRx_all = data.nlargest(10, 'TRx_sum')
-top_NRx_all = data.nlargest(10, 'NRx_sum')
-
-top_TRx_all.to_json(path_to_data + 'topSellersTRx.json',orient='records')
-top_NRx_all.to_json(path_to_data + 'topSellersNRx.json',orient='records')
-
 Cholecap = data.loc[data.Product == 'Cholecap']
 Zap_a_Pain = data.loc[data.Product == 'Zap-a-Pain']
 Nasalclear = data.loc[data.Product == 'Nasalclear']
 Nova_itch = data.loc[data.Product == 'Nova-itch']
     
 #get state info
-Cholecap_sum = Cholecap['TRx_sum'].sum()
-Cholecap_state_sum = pd.DataFrame(columns = ['State', 'Total'])
-for i, state in enumerate(states):
-    current_state_data = Cholecap.loc[data.State == state]
-    trx = current_state_data['TRx_sum'].sum()
-    Cholecap_state_sum.loc[i] = [us_state_to_abbrev[state], trx]
-Cholecap_state_sum['Percent'] = Cholecap_state_sum['Total'].astype(float).div(Cholecap_sum)
-Cholecap_max_percent = Cholecap_state_sum['Percent'].max()
-Cholecap_state_sum['AdjustedPercent'] = Cholecap_state_sum['Percent'].astype(float).div(Cholecap_max_percent).round(2)
-Cholecap_state_sum = Cholecap_state_sum.drop(columns=['Percent'])
-
-Cholecap_state_sum.to_json(path_to_data + 'CholecapStateInfo.json',orient='records')
-
-Zap_a_Pain_sum = Zap_a_Pain['TRx_sum'].sum()
-Zap_a_Pain_state_sum = pd.DataFrame(columns = ['State', 'Total'])
-for i, state in enumerate(states):
-    current_state_data = Zap_a_Pain.loc[data.State == state]
-    trx = current_state_data['TRx_sum'].sum()
-    Zap_a_Pain_state_sum.loc[i] = [us_state_to_abbrev[state], trx]
-Zap_a_Pain_state_sum['Percent'] = Zap_a_Pain_state_sum['Total'].astype(float).div(Zap_a_Pain_sum)
-Zap_a_Pain_max_percent = Zap_a_Pain_state_sum['Percent'].max()
-Zap_a_Pain_state_sum['AdjustedPercent'] = Zap_a_Pain_state_sum['Percent'].astype(float).div(Zap_a_Pain_max_percent).round(2)
-Zap_a_Pain_state_sum = Zap_a_Pain_state_sum.drop(columns=['Percent'])
-
-Zap_a_Pain_state_sum.to_json(path_to_data + 'Zap_a_PainStateInfo.json',orient='records')
-
-Nasalclear_sum = Nasalclear['TRx_sum'].sum()
-Nasalclear_state_sum = pd.DataFrame(columns = ['State', 'Total'])
-for i, state in enumerate(states):
-    current_state_data = Nasalclear.loc[data.State == state]
-    trx = current_state_data['TRx_sum'].sum()
-    Nasalclear_state_sum.loc[i] = [us_state_to_abbrev[state], trx]
-Nasalclear_state_sum['Percent'] = Nasalclear_state_sum['Total'].astype(float).div(Nasalclear_sum)
-Nasalclear_max_percent = Nasalclear_state_sum['Percent'].max()
-Nasalclear_state_sum['AdjustedPercent'] = Nasalclear_state_sum['Percent'].astype(float).div(Nasalclear_max_percent).round(2)
-Nasalclear_state_sum = Nasalclear_state_sum.drop(columns=['Percent'])
-
-Nasalclear_state_sum.to_json(path_to_data + 'NasalclearStateInfo.json',orient='records')
-
-Nova_itch_sum = Nova_itch['TRx_sum'].sum()
-Nova_itch_state_sum = pd.DataFrame(columns = ['State', 'Total'])
-for i, state in enumerate(states):
-    current_state_data = Nova_itch.loc[data.State == state]
-    trx = current_state_data['TRx_sum'].sum()
-    Nova_itch_state_sum.loc[i] = [us_state_to_abbrev[state], trx]
-Nova_itch_state_sum['Percent'] = Nova_itch_state_sum['Total'].astype(float).div(Nova_itch_sum)
-Nova_itch_max_percent = Nova_itch_state_sum['Percent'].max()
-Nova_itch_state_sum['AdjustedPercent'] = Nova_itch_state_sum['Percent'].astype(float).div(Nova_itch_max_percent).round(2)
-Nova_itch_state_sum = Nova_itch_state_sum.drop(columns=['Percent'])
-
-Nova_itch_state_sum.to_json(path_to_data + 'Nova_itchStateInfo.json',orient='records')
+getStateInfo(Cholecap, path_to_data + 'StateInfoCholecap.json')
+getStateInfo(Zap_a_Pain, path_to_data + 'StateInfoZap_a_Pain.json')
+getStateInfo(Nasalclear, path_to_data + 'StateInfoNasalclear.json')
+getStateInfo(Nova_itch, path_to_data + 'StateInfoNova_itch.json')
 
 #Get trx sums
 sums = pd.DataFrame(columns = ['Product'])
@@ -97,43 +53,12 @@ for trx in TRx_columns:
 
 sums.to_json(path_to_data + 'sums.json',orient='records')
 
-X = np.array([1,2,3,4,5,6]).reshape(-1,1)
-Cholecap_Y = sums[sums['Product'] == 'Cholecap'][TRx_columns].values.reshape(-1, 1)
-Zap_a_Pain_Y = sums[sums['Product'] == 'Zap-a-Pain'][TRx_columns].values.reshape(-1, 1)
-Nasalclear_Y = sums[sums['Product'] == 'Nasalclear'][TRx_columns].values.reshape(-1, 1)
-Nova_itch_Y = sums[sums['Product'] == 'Nova-itch'][TRx_columns].values.reshape(-1, 1)
-linear_regressor = LinearRegression()
-linear_regressor.fit(X, Cholecap_Y)
-Cholecap_Y_pred = linear_regressor.predict(X)
-linear_regressor.fit(X, Zap_a_Pain_Y)
-Zap_a_Pain_Y_pred = linear_regressor.predict(X)
-linear_regressor.fit(X, Nasalclear_Y)
-Nasalclear_Y_pred = linear_regressor.predict(X)
-linear_regressor.fit(X, Nova_itch_Y)
-Nova_itch_Y_pred = linear_regressor.predict(X)
-plt.scatter(X, Cholecap_Y)
-plt.plot(X, Cholecap_Y_pred, color='red')
-plt.savefig(path_to_data + 'Cholecap.png')
-plt.close()
-plt.scatter(X, Zap_a_Pain_Y)
-plt.plot(X, Zap_a_Pain_Y_pred, color='red')
-plt.savefig(path_to_data + 'Zap_a_Pain.png')
-plt.close()
-plt.scatter(X, Nasalclear_Y)
-plt.plot(X, Nasalclear_Y_pred, color='red')
-plt.savefig(path_to_data + 'Nasalclear.png')
-plt.close()
-plt.scatter(X, Nova_itch_Y)
-plt.plot(X, Nova_itch_Y_pred, color='red')
-plt.savefig(path_to_data + 'Nova_itch.png')
-plt.close()
-    
-
 #Top sellers for each drug
-top_TRx_Cholecap = Cholecap.nlargest(20, 'TRx_sum')
-top_TRx_Zap_a_Pain = Zap_a_Pain.nlargest(20, 'TRx_sum')
-top_TRx_Nasalclear = Nasalclear.nlargest(20, 'TRx_sum')
-top_TRx_Nova_itch = Nova_itch.nlargest(20, 'TRx_sum')
+top_sellers_num = 20
+top_TRx_Cholecap = Cholecap.nlargest(top_sellers_num, 'TRx_sum').copy().set_index(pd.Index(list(range(0,top_sellers_num))))
+top_TRx_Zap_a_Pain = Zap_a_Pain.nlargest(top_sellers_num, 'TRx_sum').copy().set_index(pd.Index(list(range(0,top_sellers_num))))
+top_TRx_Nasalclear = Nasalclear.nlargest(top_sellers_num, 'TRx_sum').copy().set_index(pd.Index(list(range(0,top_sellers_num))))
+top_TRx_Nova_itch = Nova_itch.nlargest(top_sellers_num, 'TRx_sum').copy().set_index(pd.Index(list(range(0,top_sellers_num))))
 
 top_TRx_Cholecap.to_json(path_to_data + 'topSellersCholecap.json', orient='records')
 top_TRx_Zap_a_Pain.to_json(path_to_data + 'topSellersZap_a_Pain.json', orient='records')

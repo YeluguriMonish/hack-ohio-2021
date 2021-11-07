@@ -8,7 +8,6 @@ def create_bargraph_json(file, saveFile):
         dict = {}
         dict["name"] = item["first_name"]+" "+item["last_name"]
         dict["TRx"] = item["TRx_sum"]
-        dict["NRx"] = item["NRx_sum"]
         barGraphData.append(dict)
     with open(saveFile, 'w') as outFile:
         json.dump(barGraphData, outFile)
