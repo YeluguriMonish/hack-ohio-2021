@@ -29,7 +29,6 @@ export default class DrugData extends Component {
       case "cholecap":
         return (
           <>
-            <Map drug={"cholecap"} />
             <ResponsiveContainer aspect={5.0 / 2.0} width="85%">
               <LineChart
                 data={TrxCholeccap}
@@ -78,13 +77,13 @@ export default class DrugData extends Component {
                 ))}
               </tbody>
             </Table>
+            <Map drug={"cholecap"} />
           </>
         );
       case "zap":
         return (
           <>
             <div className="test">
-              <Map drug={"zap"} />
               <ResponsiveContainer aspect={5.0 / 2.0} width="85%">
                 <LineChart
                   width={500}
@@ -136,6 +135,7 @@ export default class DrugData extends Component {
                 ))}
               </tbody>
             </Table>
+            <Map drug={"zap"} />
           </>
         );
       case "nasalclear":
