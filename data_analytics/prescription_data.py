@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from us_state_abbrev import us_state_to_abbrev
 
-path_to_data = 'data/'
+path_to_data = 'src/data/'
 
 def getStateInfo(productData, outputFile):
     sum = productData['TRx_sum'].sum()

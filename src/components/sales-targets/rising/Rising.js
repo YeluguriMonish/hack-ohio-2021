@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
 
-import CholecapRising from "../../../data/rising-cholecap.json";
-import NasalclearRising from "../../../data/rising-nasalclear.json";
-import NovaRising from "../../../data/rising-nova.json";
-import ZapRising from "../../../data/rising-zap.json";
+import CholecapRising from "../../../data/targetRiseCholecap.json";
+import NasalclearRising from "../../../data/targetRiseNasalclear.json";
+import NovaRising from "../../../data/targetRiseNova_itch.json";
+import ZapRising from "../../../data/targetRiseZap_a_Pain.json";
 
 export default class DrugData extends Component {
   render() {
