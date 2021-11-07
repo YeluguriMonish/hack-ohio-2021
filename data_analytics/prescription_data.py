@@ -140,6 +140,11 @@ top_TRx_Zap_a_Pain.to_json(path_to_data + 'topSellersZap_a_Pain.json', orient='r
 top_TRx_Nasalclear.to_json(path_to_data + 'topSellersNasalclear.json',orient='records')
 top_TRx_Nova_itch.to_json(path_to_data + 'topSellersNova_itch.json',orient='records')
 
+top_TRx_Cholecap.to_json(path_to_data + 'topSellersCholecapKV.json', orient='index')
+top_TRx_Zap_a_Pain.to_json(path_to_data + 'topSellersZap_a_PainKV.json', orient='index')
+top_TRx_Nasalclear.to_json(path_to_data + 'topSellersNasalclearKV.json',orient='index')
+top_TRx_Nova_itch.to_json(path_to_data + 'topSellersNova_itchKV.json',orient='index')
+
 #Sales targets
 average_NRx_Cholecape = Cholecap['NRx_sum'].mean()
 average_NRx_Zap_a_Pain = Zap_a_Pain['NRx_sum'].mean()
