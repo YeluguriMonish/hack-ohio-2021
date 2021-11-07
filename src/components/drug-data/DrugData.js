@@ -315,7 +315,7 @@ export default class DrugData extends Component {
           </>
         );
       default:
-        return <div>select drug</div>;
+        return <div>Select product</div>;
     }
   }
 }

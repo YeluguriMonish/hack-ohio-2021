@@ -25,11 +25,11 @@ export default class Header extends Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="drug-data">Drug Data</Nav.Link>
+            <Nav.Link href="drug-data">Product Data</Nav.Link>
             <Nav.Link href="sales-targets">Sales Targets</Nav.Link>
           </Nav>
           <Dropdown
-            placeholder="Select Drug"
+            placeholder="Select Product"
             fluid
             search
             selection
