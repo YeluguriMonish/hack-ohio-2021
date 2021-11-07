@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import json
 from us_state_abbrev import us_state_to_abbrev
 
 path_to_data = 'data/'
@@ -17,6 +16,24 @@ def getStateInfo(productData, outputFile):
     state_sum['AdjustedPercent'] = state_sum['Percent'].astype(float).div(max_percent).round(2)
     state_sum = state_sum.drop(columns=['Percent'])
     state_sum.to_json(outputFile,orient='records')
+
+def getTopSellers(productData, outputFileNoJson):
+    top_sellers_num = 20
+    top_TRx = productData.nlargest(top_sellers_num, 'TRx_sum').copy().set_index(pd.Index(list(range(0,top_sellers_num))))
+    top_TRx.to_json(path_to_data + outputFileNoJson + '.json', orient='records') 
+    top_TRx.to_json(path_to_data + outputFileNoJson + 'KV.json', orient='index')
+    return top_TRx
+
+def getSalesTargets(productData, average, drugName):
+    total_targets_num = 10
+
+    upandcoming = productData.loc[productData.NRx_sum>average].nlargest(total_targets_num, 'NRx_sum_last3').copy().set_index(pd.Index(list(range(0,total_targets_num))))
+    rising = productData[productData.NRx_sum<average].nlargest(total_targets_num, 'NRx_sum_last3').copy().set_index(pd.Index(list(range(0,total_targets_num))))
+    drop_off = productData.nlargest(total_targets_num, 'NRx_sum_half_diff').copy().set_index(pd.Index(list(range(0,total_targets_num))))
+
+    upandcoming.to_json(path_to_data + 'targetUAC'+ drugName +'.json',orient='index')
+    rising.to_json(path_to_data + 'targetRise' + drugName + '.json',orient='index')
+    drop_off.to_json(path_to_data + 'targetDrop' + drugName + '.json',orient='index')
 
 data = pd.read_csv('data_analytics/Prescriber_Data.csv')
 states = data.State.unique()
@@ -54,21 +71,11 @@ for trx in TRx_columns:
 sums.to_json(path_to_data + 'sums.json',orient='records')
 
 #Top sellers for each drug
-top_sellers_num = 20
-top_TRx_Cholecap = Cholecap.nlargest(top_sellers_num, 'TRx_sum').copy().set_index(pd.Index(list(range(0,top_sellers_num))))
-top_TRx_Zap_a_Pain = Zap_a_Pain.nlargest(top_sellers_num, 'TRx_sum').copy().set_index(pd.Index(list(range(0,top_sellers_num))))
-top_TRx_Nasalclear = Nasalclear.nlargest(top_sellers_num, 'TRx_sum').copy().set_index(pd.Index(list(range(0,top_sellers_num))))
-top_TRx_Nova_itch = Nova_itch.nlargest(top_sellers_num, 'TRx_sum').copy().set_index(pd.Index(list(range(0,top_sellers_num))))
+top_TRx_Cholecap = getTopSellers(Cholecap, 'topSellersCholecap')
+top_TRx_Zap_a_Pain = getTopSellers(Zap_a_Pain, 'topSellersZap_a_Pain')
+top_TRx_Nasalclear = getTopSellers(Nasalclear, 'topSellersNasalclear')
+top_TRx_Nova_itch = getTopSellers(Nova_itch, 'topSellersNova_itch')
 
-top_TRx_Cholecap.to_json(path_to_data + 'topSellersCholecap.json', orient='records')
-top_TRx_Zap_a_Pain.to_json(path_to_data + 'topSellersZap_a_Pain.json', orient='records')
-top_TRx_Nasalclear.to_json(path_to_data + 'topSellersNasalclear.json',orient='records')
-top_TRx_Nova_itch.to_json(path_to_data + 'topSellersNova_itch.json',orient='records')
-
-top_TRx_Cholecap.to_json(path_to_data + 'topSellersCholecapKV.json', orient='index')
-top_TRx_Zap_a_Pain.to_json(path_to_data + 'topSellersZap_a_PainKV.json', orient='index')
-top_TRx_Nasalclear.to_json(path_to_data + 'topSellersNasalclearKV.json',orient='index')
-top_TRx_Nova_itch.to_json(path_to_data + 'topSellersNova_itchKV.json',orient='index')
 
 #Sales targets
 average_NRx_Cholecape = Cholecap['NRx_sum'].mean()
@@ -89,37 +96,10 @@ for index, row in top_TRx_Nasalclear.iterrows():
 for index, row in top_TRx_Nova_itch.iterrows():
     Nova_itch_r_top.drop(Nova_itch_r_top[Nova_itch_r_top['id'] == row['id']].index, inplace=True)
 
-Cholecap_upandcoming = Cholecap_r_top.loc[Cholecap_r_top.NRx_sum>average_NRx_Cholecape].nlargest(10, 'NRx_sum_last3')
-Cholecap_rising = Cholecap_r_top.loc[Cholecap_r_top.NRx_sum<average_NRx_Cholecape].nlargest(10, 'NRx_sum_last3')
-Cholecap_drop_off = Cholecap_r_top.nlargest(10, 'NRx_sum_half_diff')
+total_targets_num = 10
 
-Cholecap_upandcoming.to_json(path_to_data + 'targetUACCholecap.json',orient='records')
-Cholecap_rising.to_json(path_to_data + 'targetRiseCholecap.json',orient='records')
-Cholecap_drop_off.to_json(path_to_data + 'targetDropCholecap.json',orient='records')
+getSalesTargets(Cholecap_r_top, average_NRx_Cholecape, 'Cholecap')
+getSalesTargets(Nasalclear_r_top, average_NRx_Nasalclear, 'Nasalclear')
+getSalesTargets(Zap_a_Pain_r_top, average_NRx_Zap_a_Pain, 'Zap_a_Pain')
+getSalesTargets(Nova_itch_r_top, average_NRx_Nova_itch, 'Nova_itch')
 
-
-Zap_a_Pain_upandcoming = Zap_a_Pain_r_top.loc[Zap_a_Pain_r_top.NRx_sum>average_NRx_Zap_a_Pain].nlargest(10, 'NRx_sum_last3')
-Zap_a_Pain_rising = Zap_a_Pain_r_top.loc[Zap_a_Pain_r_top.NRx_sum<average_NRx_Zap_a_Pain].nlargest(10, 'NRx_sum_last3')
-Zap_a_Pain_drop_off = Zap_a_Pain_r_top.nlargest(10, 'NRx_sum_half_diff')
-
-Zap_a_Pain_upandcoming.to_json(path_to_data + 'targetUACZap_a_Pain.json',orient='records')
-Zap_a_Pain_rising.to_json(path_to_data + 'targetRiseZap_a_Pain.json',orient='records')
-Zap_a_Pain_drop_off.to_json(path_to_data + 'targetDropZap_a_Pain.json',orient='records')
-
-
-Nasalclear_upandcoming = Nasalclear_r_top.loc[Nasalclear_r_top.NRx_sum>average_NRx_Nasalclear].nlargest(10, 'NRx_sum_last3')
-Nasalclear_rising = Nasalclear_r_top.loc[Nasalclear_r_top.NRx_sum<average_NRx_Nasalclear].nlargest(10, 'NRx_sum_last3')
-Nasalclear_drop_off = Nasalclear_r_top.nlargest(10, 'NRx_sum_half_diff')
-
-Nasalclear_upandcoming.to_json(path_to_data + 'targetUACNasalclear.json',orient='records')
-Nasalclear_rising.to_json(path_to_data + 'targetRiseNasalclear.json',orient='records')
-Nasalclear_drop_off.to_json(path_to_data + 'targetDropNasalclear.json',orient='records')
-
-
-Nova_itch_upandcoming = Nova_itch_r_top.loc[Nova_itch_r_top.NRx_sum>average_NRx_Nova_itch].nlargest(10, 'NRx_sum_last3')
-Nova_itch_rising = Nova_itch_r_top.loc[Nova_itch_r_top.NRx_sum<average_NRx_Nova_itch].nlargest(10, 'NRx_sum_last3')
-Nova_itch_drop_off = Nova_itch_r_top.nlargest(10, 'NRx_sum_half_diff')
-
-Nova_itch_upandcoming.to_json(path_to_data + 'targetUACNova_itch.json',orient='records')
-Nova_itch_rising.to_json(path_to_data + 'targetRiseNova_itch.json',orient='records')
-Nova_itch_drop_off.to_json(path_to_data + 'targetDropNova_itch.json',orient='records')
